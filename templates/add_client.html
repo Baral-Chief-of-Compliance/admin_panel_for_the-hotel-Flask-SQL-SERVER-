@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+  <form method="post" action="{{ url_for('add_client') }}">
+    <input name="surname" placeholder="Фамилия">
+    <input name="name" placeholder="Имя">
+    <input name="patronomic" placeholder="Отчество">
+    <input name="bank_account" placeholder="Номер счета">
+    <input type="submit" value="Добавить клиента">
+  </form>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>вход</title>
+</head>
+<body>
+  <form action="{{ url_for('login') }}" method="post">
+    <input class='login-in' name="username" placeholder="Логин" autocomplete="off" required>
+    <input class='login-in' name="password" placeholder="Пароль" autocomplete="off" required>
+    <div class="msg">{{ msg }}</div>
+    <input class='login-bt' type="submit" value="Войти">
+  </form>
+</body>
+</html>

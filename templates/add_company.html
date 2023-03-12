@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <form method="post" action="{{ url_for('add_company') }}">
+        <input name="name_company" placeholder="Название организации">
+        <input name="type_company" placeholder="Тип организации">
+        <input name="bank_account" placeholder="Банковский счет">
+        <input type="submit" value="Добавить организацию">
+    </form>
+</body>
+</html>
