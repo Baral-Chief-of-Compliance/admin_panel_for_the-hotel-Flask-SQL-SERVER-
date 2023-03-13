@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-  <form method="post" action="{{ url_for('add_client') }}">
-    <input name="surname" placeholder="Фамилия">
-    <input name="name" placeholder="Имя">
-    <input name="patronomic" placeholder="Отчество">
-    <input name="bank_account" placeholder="Номер счета">
-    <input type="submit" value="Добавить клиента">
+{% extends "base.html" %}
+
+{% block content %}
+<div class="clients-content" >
+    <h1 class="page-title">Добавить клиента</h1>
+
+  <form class="clients-form" method="post" action="{{ url_for('add_client') }}"  autocomplete="off">
+    <input class="clients-input" name="surname" placeholder="Фамилия" required>
+    <input class="clients-input" name="name" placeholder="Имя" required>
+    <input class="clients-input" name="patronomic" placeholder="Отчество" required>
+    <input class="clients-input" name="bank_account" placeholder="Номер счета" required>
+    <input class="clients-input-button" type="submit" value="Добавить клиента">
   </form>
-</body>
-</html>
+</div>
+{% endblock %}

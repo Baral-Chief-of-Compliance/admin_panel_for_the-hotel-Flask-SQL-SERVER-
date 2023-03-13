@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+        <title>{{ title }} - Склад</title>
+    {% else %}
+        <title>The TipTop</title>
+    {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
+    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='svg/hotel.svg')}}"/>
+</head>
+<body>
+    <div class="navigation">
+        <div class="navigation-variant">
+
+            <div class="dropdown">
+                <button onclick="myFunction('clientDropdown')" class="nav-selection">Клиенты</button>
+                <div id="clientDropdown" class="dropdown-content">
+                    <a href="{{ url_for('add_client') }}">Добавить</a>
+                    <a href="{{ url_for('clients') }}">Список</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button onclick="myFunction('companyDropdown')" class="nav-selection">Организации</button>
+                <div id="companyDropdown" class="dropdown-content">
+                    <a href="{{ url_for('add_company') }}">Добавить</a>
+                    <a href="{{ url_for('companys') }}">Список</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button onclick="myFunction('reoDropdown')" class="nav-selection">Менеджеры</button>
+                <div id="reoDropdown" class="dropdown-content">
+                    <a href="{{ url_for('add_manager') }}">Добавить</a>
+                    <a href="{{ url_for('managers') }}">Список</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button onclick="myFunction('roomsDropdown')" class="nav-selection">Комнаты</button>
+                <div id="roomsDropdown" class="dropdown-content">
+                    <a href="{{ url_for('free_rooms') }}">Свободные</a>
+                    <a href="{{ url_for('busy_rooms') }}">Занятые</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button onclick="myFunction('pactDropdown')" class="nav-selection">Договоры</button>
+                <div id="pactDropdown" class="dropdown-content">
+                    <a href="{{ url_for('add_pact') }}">Добавить</a>
+                    <a href="{{ url_for('pacts') }}">Список</a>
+                </div>
+            </div>
+
+            <div class="nav-operator-info">
+                <div class="nav-operator-name">
+                    {{ login }}
+                </div>
+                <div class="nav-operator-del">
+                    |
+                </div>
+                <div class="nav-operator-exit">
+                    <a id='a-exit' href="{{ url_for('logout')}}">выход</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <body>
+        <div class="main-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+    <div class="footer">
+        @2023, fsociety
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/dropdown.js')}}"></script>
+</body>
+</html>

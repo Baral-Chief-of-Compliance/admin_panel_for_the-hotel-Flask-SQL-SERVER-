@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-  {{ clients }}
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="clients-content">
+    <h1 class="page-title">Список клиентов</h1>
+    <div class="table-name">клиенты</div>
+    {% if clients %}
+    <table>
+        <thead>
+            <tr>
+
+                <th>
+                    Фамилия
+                </th>
+                <th>
+                   Имя
+                </th>
+                <th>
+                    Отчество
+                </th>
+                <th>
+                    Банковский счет
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for c in clients %}
+            <tr>
+                <td>
+                    {{c[1]}}
+                </td>
+                <td>
+                    {{c[2]}}
+                </td>
+                <td>
+                    {{c[3]}}
+                </td>
+                <td>
+                    {{c[4]}}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="absent">Пока ничего нет</div>
+    {% endif %}
+
+</div>
+{% endblock %}

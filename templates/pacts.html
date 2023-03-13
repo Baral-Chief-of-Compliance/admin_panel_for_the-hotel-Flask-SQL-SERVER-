@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="clients-content">
+    <h1 class="page-title">Список оформленных договоров</h1>
+
+ {% if pacts %}
+  <table>
+        <thead>
+            <tr>
+
+                <th>
+                    Номер договора
+                </th>
+                <th>
+                   Количество чел.
+                </th>
+                <th>
+                    Здание
+                </th>
+                <th>
+                    Комната
+                </th>
+                <th>
+                    Заселение
+                </th>
+                <th>
+                    Выселение
+                </th>
+                <th>
+                    Ф. клиента
+                </th>
+                <th>
+                    И. клиента
+                </th>
+                <th>
+                    О. клиента
+                </th>
+                <th>
+                    Ф. менеджера
+                </th>
+                <th>
+                    И. менеджера
+                </th>
+                <th>
+                    О. менеджера
+                </th>
+                <th>
+                    Название организации
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for p in pacts %}
+            <tr>
+                <td>
+                    {{p[0]}}
+                </td>
+                <td>
+                    {{p[1]}}
+                </td>
+                <td>
+                    {{p[2]}}
+                </td>
+                <td>
+                    {{p[3]}}
+                </td>
+                <td>
+                    {{p[4]}}
+                </td>
+                <td>
+                    {{p[5]}}
+                </td>
+                <td>
+                    {{p[6]}}
+                </td>
+                <td>
+                    {{p[7]}}
+                </td>
+                <td>
+                    {{p[8]}}
+                </td>
+                <td>
+                    {{p[9]}}
+                </td>
+                <td>
+                    {{p[10]}}
+                </td>
+                <td>
+                    {{p[11]}}
+                </td>
+                <td>
+                    {{p[12]}}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="absent">Пока ничего нет</div>
+    {% endif %}
+
+</div>
+{% endblock %}

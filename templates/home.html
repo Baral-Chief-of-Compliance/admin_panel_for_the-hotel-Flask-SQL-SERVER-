@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Главная</title>
-</head>
-<body>
-да
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="clients-content">
+    <h1 class="page-title">Главная</h1>
+        <div class="table-name">Это административная панель для оператора</div>
+        <div class="table-name">Добро пожаловать {{ login }}</div>
+
+    </div>
+{% endblock %}

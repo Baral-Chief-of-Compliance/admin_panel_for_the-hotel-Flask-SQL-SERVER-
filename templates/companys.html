@@ -3,35 +3,37 @@
 {% block content %}
 
 <div class="clients-content">
-    <h1 class="page-title">Список менеджеров</h1>
-    <div class="table-name">менеджеры</div>
-    {% if managers %}
-    <table>
+    <h1 class="page-title">Список организаций</h1>
+    <div class="table-name">организации</div>
+
+    {% if companys %}
+  <table>
         <thead>
             <tr>
+
                 <th>
-                    Фамилия
+                    Название
                 </th>
                 <th>
-                   Имя
+                   Тип
                 </th>
                 <th>
-                    Отчество
+                    Банковский счет
                 </th>
             </tr>
         </thead>
 
         <tbody>
-            {% for m in managers %}
+            {% for c in companys %}
             <tr>
                 <td>
-                    {{m[1]}}
+                    {{c[1]}}
                 </td>
                 <td>
-                    {{m[2]}}
+                    {{c[2]}}
                 </td>
                 <td>
-                    {{m[3]}}
+                    {{c[3]}}
                 </td>
             </tr>
             {% endfor %}
@@ -43,4 +45,3 @@
 
 </div>
 {% endblock %}
-

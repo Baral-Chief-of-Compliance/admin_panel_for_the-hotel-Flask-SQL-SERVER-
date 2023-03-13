@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-    <form method="post" action="{{ url_for('add_company') }}">
-        <input name="name_company" placeholder="Название организации">
-        <input name="type_company" placeholder="Тип организации">
-        <input name="bank_account" placeholder="Банковский счет">
-        <input type="submit" value="Добавить организацию">
+{% extends "base.html" %}
+
+{% block content %}
+<div class="clients-content" >
+    <h1 class="page-title">Добавить организацию</h1>
+
+    <form class="clients-form" method="post" action="{{ url_for('add_company') }}" autocomplete="off">
+        <input class="clients-input" name="name_company" placeholder="Название организации" required>
+        <input class="clients-input" name="type_company" placeholder="Тип организации" required>
+        <input class="clients-input" name="bank_account" placeholder="Банковский счет" required>
+        <input class="clients-input-button" type="submit" value="Добавить организацию" required>
     </form>
-</body>
-</html>
+
+    </div>
+{% endblock %}

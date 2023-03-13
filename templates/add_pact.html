@@ -1,53 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-    <form method="post" action="{{ url_for('add_pact') }}">
+{% extends "base.html" %}
 
-        <div>Клиент</div>
-        {% for c in clients %}
-            <input type="radio" name="clients" value="{{ c[0] }}">
-            {{ c[1] }} {{ c[2] }} {{ c[3] }}
-        {% endfor %}
+{% block content %}
+<div class="clients-content" >
 
-        <div>Организация</div>
-        {% for c in companys %}
-            <input type="radio" name="companys" value="{{ c[0] }}">
-            {{ c[1] }} {{ c[2] }}
-        {% endfor %}
+    <h1 class="page-title">Оформить договор</h1>
 
-        <div>Менеджер</div>
-        {% for m in managers %}
-            <input type="radio" name="managers" value="{{ m[0] }}">
-            {{ m[1] }} {{ m[2] }} {{ m[3] }}
-        {% endfor %}
+    <form class="clients-form" method="post" action="{{ url_for('add_pact') }}">
 
-        <div>Комната</div>
-        {% for r in rooms %}
-            <input type="radio" name="rooms" value="{{ [r[0],r[1]] }}">
-            {{ r[1] }} {{ r[2] }} {{ r[3] }} {{ r[4] }} {{ r[5] }}руб.
-        {% endfor %}
+        <div class="table-name">Клиент</div>
 
-        <div>Услуги</div>
-        {% for s in serveces %}
-            <input type="checkbox" name="serveces" value="{{ s[0] }}">
-            {{ s[1] }} {{ s[2] }}руб.
-        {% endfor %}
+        <div>
+            {% for c in clients %}
+                <input class="client-checkbox" type="radio" name="clients" value="{{ c[0] }}">
+                {{ c[1] }} {{ c[2] }} {{ c[3] }} <br>
+            {% endfor %}
+        </div>
 
-        <div>Количество чел</div>
-        <input name="human_county" type="number">
+        <div class="table-name">Организация</div>
 
-        <div>Дата заселения</div>
-        <input type="date" name="check_in_date">
+        <div>
+            {% for c in companys %}
+                <input  class="client-checkbox" type="radio" name="companys" value="{{ c[0] }}">
+                {{ c[1] }} {{ c[2] }} <br>
+            {% endfor %}
+        </div>
 
-        <div>Дата выселения</div>
-        <input type="date" name="check_out_date">
+        <div class="table-name">Менеджер</div>
 
-        <input type="submit" value="оформить договор">
+        <div>
+            {% for m in managers %}
+                <input  class="client-checkbox" type="radio" name="managers" value="{{ m[0] }}">
+                {{ m[1] }} {{ m[2] }} {{ m[3] }}<br>
+            {% endfor %}
+        </div>
+
+        <div class="table-name">Комната</div>
+
+        <div>
+            {% for r in rooms %}
+                <input class="client-checkbox" type="radio" name="rooms" value="{{ [r[0],r[1]] }}">
+                {{ r[1] }} {{ r[2] }} {{ r[3] }} {{ r[4] }} {{ r[5] }}руб.<br>
+            {% endfor %}
+        </div>
+
+        <div class="table-name">Услуги</div>
+
+        <div>
+            {% for s in serveces %}
+                <input class="client-checkbox" type="checkbox" name="serveces" value="{{ s[0] }}">
+                {{ s[1] }} {{ s[2] }}руб.<br>
+            {% endfor %}
+        </div>
+
+        <div class="table-name">Количество чел</div>
+        <input class="clients-input" name="human_county" type="number">
+
+        <div class="table-name">Дата заселения</div>
+        <input class="clients-input" type="date" name="check_in_date">
+
+        <div class="table-name">Дата выселения</div>
+        <input class="clients-input" type="date" name="check_out_date">
+
+        <input class="clients-input-button" type="submit" value="оформить договор">
 
     </form>
-</body>
-</html>
+
+    </div>
+{% endblock %}

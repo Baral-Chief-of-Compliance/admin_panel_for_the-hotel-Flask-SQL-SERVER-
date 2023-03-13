@@ -70,7 +70,8 @@ def managers():
                  fetchall=True
                  )
 
-            return render_template('managers.html', managers=managers)
+            return render_template('managers.html', managers=managers,
+                                   login=session['username'])
 
     return redirect(url_for('login'))
 
@@ -92,7 +93,31 @@ def free_rooms():
                           commit=False,
                           fetchall=False)
 
-            return render_template('free_rooms.html', rooms=rooms, county=county)
+            return render_template('free_rooms.html', rooms=rooms,
+                                   county=county, title='Свободные номера',
+                                   login=session['username'])
+
+    return redirect(url_for('login'))
+
+
+@app.route('/busy_rooms', methods=['GET'])
+def busy_rooms():
+    if 'loggedin' in session:
+        if request.method == 'GET':
+            rooms  = call("select *"
+                         " from [РГР_ГЛЕБ].[dbo].[ГОСТИНИЧНЫЙ_КОМПЛЕКС]"
+                         "where [Статус_номера] = 'занято'",
+                         commit=False,
+                         fetchall=True)
+
+            county = call("select count(Статус_номера)"
+                          " from [РГР_ГЛЕБ].[dbo].[ГОСТИНИЧНЫЙ_КОМПЛЕКС]"
+                          "where [Статус_номера] = 'занято'",
+                          commit=False,
+                          fetchall=False)
+
+            return render_template('busy_rooms.html', rooms=rooms, county=county,
+                                   title='Занятые номера', login=session['username'])
 
     return redirect(url_for('login'))
 
@@ -108,7 +133,8 @@ def clients():
                            fetchall=True
                            )
 
-            return render_template('clients.html', title='Клеинты', clients=clients)
+            return render_template('clients.html', title='Клеинты', clients=clients,
+                                   login=session['username'])
 
     return redirect(url_for('login'))
 
@@ -130,7 +156,8 @@ def history_of_service():
 
             return render_template('history_of_service.html',
                                    title='История сервисов',
-                                   history=history)
+                                   history=history,
+                                   login=session['username'])
 
     return redirect(url_for('login'))
 
@@ -168,7 +195,8 @@ def add_client():
 
             return render_template('inf_add_client.html', surname=surname,
                                    name=name, patronomic=patronomic,
-                                   title='Клиент добавлен'
+                                   title='Клиент добавлен',
+                                   login=session['username']
                                    )
 
     return redirect(url_for('login'))
@@ -208,7 +236,8 @@ def add_company():
 
             return render_template('inf_add_company.html',
                                    title='Организация добавлена',
-                                   name_company=name_company)
+                                   name_company=name_company,
+                                   login=session['username'])
 
     return redirect(url_for('login'))
 
@@ -247,7 +276,8 @@ def add_manager():
                                    title='Менеджер добавлен',
                                    manager_surname=manager_surname,
                                    manager_name=manager_name,
-                                   manager_patronomic=manager_patronomic
+                                   manager_patronomic=manager_patronomic,
+                                   login=session['username']
                                    )
 
     return redirect(url_for('login'))
@@ -268,7 +298,8 @@ def add_pact():
             return render_template('add_pact.html', title='Добавить договор',
                                    clients=clients, companys=companys,
                                    managers=managers, rooms=rooms,
-                                   serveces=serveces
+                                   serveces=serveces,
+                                   login=session['username']
                                    )
 
         elif request.method == 'POST':
@@ -314,7 +345,58 @@ def add_pact():
                     code_service = code_service + 1
 
             return render_template('inf_add_pact.html', pact_code=pact_code
-                                   , title='Договор добавлен')
+                                   , title='Договор добавлен',
+                                   login=session['username'])
+
+    return redirect(url_for('login'))
+
+
+@app.route('/companys')
+def companys():
+    if 'loggedin' in session:
+        if request.method == 'GET':
+
+            companys = call('select * '
+                            'from [РГР_ГЛЕБ].[dbo].[ОРГАНИЗАЦИЯ]',
+                            commit=False, fetchall=True)
+
+            return render_template('companys.html', title='Организации',
+                                   companys=companys, login=session['username'])
+
+    return redirect(url_for('login'))
+
+
+@app.route('/pacts')
+def pacts():
+    if 'loggedin' in session:
+        if request.method == 'GET':
+            pacts = call('SELECT [Номер_договора]'
+                         ',[Количество_чел]'
+                         ',[Номер_здания]'
+                         ',[Номер_комнаты]'
+                         ',[Дата_заселения]'
+                         ',[Дата_выселения]'
+                         ',[РГР_ГЛЕБ].[dbo].[КЛИЕНТ].[Фамилия_к], '
+                         '[РГР_ГЛЕБ].[dbo].[КЛИЕНТ].[Имя_к], '
+                         '[РГР_ГЛЕБ].[dbo].[КЛИЕНТ].[Отчество_к], '
+                         '[РГР_ГЛЕБ].[dbo].[МЕНЕДЖЕР].Фамилия_м, '
+                         '[РГР_ГЛЕБ].[dbo].[МЕНЕДЖЕР].Имя_м, '
+                         '[РГР_ГЛЕБ].[dbo].[МЕНЕДЖЕР].Отчество_м, '
+                         '[РГР_ГЛЕБ].[dbo].[ОРГАНИЗАЦИЯ].Название_орг '
+                         'FROM [РГР_ГЛЕБ].[dbo].[ДОГОВОР] inner join [РГР_ГЛЕБ].[dbo].[КЛИЕНТ] '
+                         'on [РГР_ГЛЕБ].[dbo].[ДОГОВОР].[Номер_клиента] '
+                         '= [РГР_ГЛЕБ].[dbo].[КЛИЕНТ].[Номер_клиента] inner join '
+                         '[РГР_ГЛЕБ].[dbo].[МЕНЕДЖЕР] '
+                         'on [РГР_ГЛЕБ].[dbo].[ДОГОВОР].[Номер_менеджера]'
+                         ' = [РГР_ГЛЕБ].[dbo].[МЕНЕДЖЕР].[Номер_менеджера] inner join '
+                         '[РГР_ГЛЕБ].[dbo].[ОРГАНИЗАЦИЯ]'
+                         ' on [РГР_ГЛЕБ].[dbo].[ДОГОВОР].[Номер_организации]'
+                         ' = [РГР_ГЛЕБ].[dbo].[ОРГАНИЗАЦИЯ].Номер_организации',
+                         commit=False,
+                         fetchall=True)
+
+            return render_template('pacts.html', title='Договоры', pacts=pacts,
+                                   login=session['username'])
 
     return redirect(url_for('login'))
 
