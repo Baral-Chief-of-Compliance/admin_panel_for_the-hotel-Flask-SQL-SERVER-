@@ -290,24 +290,33 @@ def add_pact():
             if len(str(pact_count_id)) == 1:
                 pact_count_id = f'0{pact_count_id}'
 
-
-
-            print(clients, companys, managers,
-                  rooms, serveces, human_county,
-                  check_in_date, check_out_date
-                  )
-
-            print('pact_count_id:' + pact_count_id)
-            print('data_for_id:' + str(check_in_date))
-
             pact_code = f'{pact_count_id}-{str(check_in_date)[2]}{str(check_in_date)[3]}'
-            print('pact_code:'+pact_code)
 
+            call('insert into [РГР_ГЛЕБ].[dbo].[ДОГОВОР] '
+                 '([Номер_договора], [Номер_организации],'
+                 '[Номер_клиента], [Номер_менеджера],'
+                 '[Количество_чел], [Номер_здания],'
+                 '[Номер_комнаты], [Дата_заселения],'
+                 '[Дата_выселения]) values'
+                 '(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                 [pact_code, companys, clients, managers, human_county,
+                  rooms[0], rooms[1], check_in_date, check_out_date],
+                 commit=True, fetchall=False)
 
+            code_service = 1
 
+            if len(serveces) > 0:
+                for s in serveces:
+                    call("insert into [РГР_ГЛЕБ].[dbo].[ИСТОРИЯ_ОБСЛУЖИВАНИЯ] "
+                         "([Номер_договора], [Номер_чека], [Номер_услуги],"
+                         "[Статус_оплаты]) values (?, ?, ?, ?)",
+                         [pact_code, code_service, s, 'оплачено'], commit=True, fetchall=False)
+                    code_service = code_service + 1
+
+            return render_template('inf_add_pact.html', pact_code=pact_code
+                                   , title='Договор добавлен')
 
     return redirect(url_for('login'))
-
 
 
 if __name__ == '__main__':
