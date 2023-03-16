@@ -7,7 +7,7 @@ load_dotenv()
 
 class Config(object):
     SECRET_KEY = os.getenv('SECRET_KEY')
-    SERVER = 'DESKTOP-CBFF35S\SQLEXPRESS'
-    DATABASE = 'РГР_ГЛЕБ'
-    DRIVER = 'ODBC Driver 17 for SQL Server'
-    DATABASE_CON = f'mssql://@{SERVER}/{DATABASE}?driver={DRIVER}'
+    MYSQL_HOST = os.getenv('MYSQL_HOST')
+    MYSQL_USER = os.getenv('MYSQL_USER')
+    MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
+    MYSQL_DB = os.getenv('MYSQL_DB')

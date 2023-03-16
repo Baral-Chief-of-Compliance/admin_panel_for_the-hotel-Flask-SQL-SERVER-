@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="clients-content" autocomplete="off">
+
+    <h1 class="page-title">Освободить комнату</h1>
+
+   <form class="clients-form" method="post" action="{{ url_for('release_rooms') }}">
+
+     <div class="table-name">Номер здания</div>
+     <input class="clients-input" name="building" type="number">
+
+     <div class="table-name">Номер комнаты</div>
+     <input class="clients-input" name="room">
+
+     <input class="clients-input-button" type="submit" value="освободить">
+
+   </form>
+
+</div>
+
+{% endblock %}
